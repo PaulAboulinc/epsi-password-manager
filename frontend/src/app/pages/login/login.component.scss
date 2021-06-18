@@ -2,20 +2,9 @@ body {
   font-family: 'RobotoDraft', 'Roboto', sans-serif;
 }
 
-.title {
-  color: white;
-  text-transform: uppercase;
-}
-
 .large-icon {
   width: 50px;
   height: 50px;
-}
-
-.subheading {
-  color: ghostwhite;
-  text-align: center;
-  margin: 0 30px;
 }
 
 .description {
@@ -25,25 +14,13 @@ body {
   text-align: center;
 }
 
-.layer {
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 100%;
-  height: 100%;
-}
-
 .layout {
-  min-height: 100vh;
+  height: calc(100% - 64px);
   background: linear-gradient(90deg, #f3f7fa 30%, white 70%);
 }
 
 .login-form {
   padding: 0 100px;
-}
-
-.bg-image-1 {
-  background-image: url('https://www.nchambon.com/spencer-davis-naFHFLV5cqU-unsplash.jpg');
-  background-size: cover;
-  background-position: bottom;
 }
 
 .bg-image-2 {

@@ -10,12 +10,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ExtendedModule, FlexModule, GridModule } from '@angular/flex-layout';
 import { RegistrationComponent } from './registration/registration.component';
 import { PasswordDashboardComponent } from './password-dashboard/password-dashboard.component';
+import { SideScreenComponent } from './side-screen/side-screen.component';
 
 
 
 
 @NgModule({
-  declarations: [LoginComponent, RegistrationComponent, PasswordDashboardComponent],
+  declarations: [LoginComponent, RegistrationComponent, PasswordDashboardComponent, SideScreenComponent],
     imports: [
         CommonModule,
         SharedModule,
