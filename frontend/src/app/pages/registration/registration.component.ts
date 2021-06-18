@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { user } from '../../models/models'
+import { User } from '../../models/models'
 
 @Component({
   selector: 'app-registration',
@@ -9,7 +9,7 @@ import { user } from '../../models/models'
 })
 export class RegistrationComponent implements OnInit {
 
-  user : user = {
+  user : User = {
     email : "",
     password : "",
     firstName : "",

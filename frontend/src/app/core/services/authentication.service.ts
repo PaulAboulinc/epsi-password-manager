@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http
 import { Observable, of } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
 import { LocalStorageService } from "./local-storage.service";
-import { user } from "../../models/models";
+import { User } from "../../models/models";
 
 
 @Injectable({
@@ -45,7 +45,7 @@ export class AuthenticationService {
     );
   }
 
-  registrate(user: user): Observable<any> {
+  registrate(user: User): Observable<any> {
     return this.httpClient.post(      
       'http://www.NonStopIntegration.results-alnet.com',
       user,
