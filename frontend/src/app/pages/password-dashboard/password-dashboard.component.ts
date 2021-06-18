@@ -21,6 +21,7 @@ export class PasswordDashboardComponent implements OnInit {
   constructor() { }
   displayedColumns: string[] = ['label', 'password', 'action'];
   dataSource = new MatTableDataSource<PasswordUser>([]);
+  incompleteInput : boolean = false;
 
   ngOnInit(): void {    
     this.refreshTable()
@@ -30,20 +31,32 @@ export class PasswordDashboardComponent implements OnInit {
 
     // ADD WITH SERVICE, IF OK PUSH IN TAB
 
-    console.log(this.label);
-    console.log(this.password);
+    if(!this.label || !this.password){
+      this.incompleteInput = true;
+      setTimeout(() => {
+        this.incompleteInput = false;
+      }, 5000);
+      return 
+    }
     
     this.password_user.push({
       label : this.label,
       password : this.password
-    })
-    console.log(this.password_user);
-    
+    })    
     this.refreshTable()
   }
 
   refreshTable() : any{
     this.dataSource.data = this.password_user    
   }
+
+  removePassword(passwordUser : PasswordUser){
+    this.password_user = this.password_user.filter((password)=>{
+      return password.label !== passwordUser.label
+    });
+    this.refreshTable()    
+  }
+
+  
 
 }
