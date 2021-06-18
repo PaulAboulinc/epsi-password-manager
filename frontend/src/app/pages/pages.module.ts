@@ -6,26 +6,28 @@ import { LoginComponent } from './login/login.component';
 
 import { SharedModule } from '../shared/shared.module';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ExtendedModule, FlexModule, GridModule } from '@angular/flex-layout';
+import { RegistrationComponent } from './registration/registration.component';
 
 
 
 
 @NgModule({
-  declarations: [LoginComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    FlexModule,
-    GridModule,
-    ExtendedModule,
+  declarations: [LoginComponent, RegistrationComponent],
+    imports: [
+        CommonModule,
+        SharedModule,
+        FlexModule,
+        GridModule,
+        ExtendedModule,
 
-    // Forms
-    ReactiveFormsModule,
+        // Forms
+        ReactiveFormsModule,
 
-    // Routing
-    PagesRoutingModule,
-  ],
+        // Routing
+        PagesRoutingModule,
+        FormsModule,
+    ],
 })
 export class PagesModule {}

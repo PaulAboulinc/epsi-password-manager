@@ -23,13 +23,14 @@ export class AuthenticationService {
     return of(errorMessage);
   }
 
-  login(username: string, location: string): Observable<any> {
+  login(email: string, password: string): Observable<any> {
     return this.httpClient.request(
       'POST',
       'http://www.NonStopIntegration.results-alnet.com',
       {
         body: {
-          username
+          email,
+          password
         }
       }
     ).pipe(
@@ -41,26 +42,6 @@ export class AuthenticationService {
     );
   }
 
-  me(): Observable<any> {
-    return this.httpClient.request(
-      'POST',
-      `http://www.NonStopIntegration.results-alnet.com
-      ${ this.localStorage.getItem('user-id') }`,
-      {
-        body: {
-          location: this.localStorage.getItem('location')
-        }
-      }
-    ).pipe(
-      catchError(AuthenticationService.handleError),
-      map(data => {
-        return {
-          ...data,
-          location: this.localStorage.getItem('location')
-        }
-      })
-    );
-  }
 
   isAuthenticated(): boolean {
     return !!this.localStorage.getItem('user-id');

@@ -1,0 +1,71 @@
+<div class="layout" fxLayout="row">
+    <div fxFlex="60">
+      <div fxFlex="column" fxFlexAlign="center" class="login-form">
+        <mat-card>
+          <mat-card-header class="justify-content-center">
+            <mat-card-title>
+              <h1 class="text-center">Create an account <span>Sparetime</span></h1>
+              <h3 class="text-uppercase">
+                Create an account
+              </h3>
+            </mat-card-title>
+          </mat-card-header>
+          <hr />
+          <mat-card-content fxLayout="column" >
+            <form class="example-form">
+                <table class="example-full-width" cellspacing="0"><tr>
+                  <td><mat-form-field class="example-full-width">
+                    <mat-label>First name</mat-label>
+                    <input matInput>
+                  </mat-form-field></td>
+                  <td><mat-form-field class="example-full-width">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput>
+                  </mat-form-field></td>
+                </tr></table>
+              
+                <p>
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Address</mat-label>
+                    <textarea matInput placeholder="Ex. 100 Main St">1600 Amphitheatre Pkwy</textarea>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Address 2</mat-label>
+                    <textarea matInput></textarea>
+                  </mat-form-field>
+                </p>
+              
+                <table class="example-full-width" cellspacing="0"><tr>
+                  <td><mat-form-field class="example-full-width">
+                    <mat-label>City</mat-label>
+                    <input matInput placeholder="Ex. San Francisco">
+                  </mat-form-field></td>
+                  <td><mat-form-field class="example-full-width">
+                    <mat-label>State</mat-label>
+                    <input matInput placeholder="Ex. California">
+                  </mat-form-field></td>
+                  <td><mat-form-field class="example-full-width">
+                    <mat-label>Postal Code</mat-label>
+                    <input matInput #postalCode maxlength="5" placeholder="Ex. 94105" value="94043">
+                    <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+                  </mat-form-field></td>
+                </tr></table>
+              </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <div fxFlex="40" class="bg-image-1">
+      <div fxLayout="column" fxLayoutAlign="center center" class="layer">
+        <h3 class="title">Sparetime©</h3>
+        <h1 class="subheading">Discover an innovative way to find your <span style="color: #3f51b5">events !</span></h1>
+        <p class="description">
+          Our application is intended for everyone, both users of all ages and from all backgrounds, as well as various
+          players in the events sector, actor, organizer and public decision-maker
+          <br />
+          « L’IA au service de la ville de demain »
+        </p>
+      </div>
+    </div>
+  </div>
+  
