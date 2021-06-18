@@ -1,0 +1,82 @@
+def getEnvName(branchName) {
+  if (branchName.startsWith("release-")) {
+    return 'prod';
+  } else if (branchName == "preprod") {
+    return 'preprod';
+  }
+  return "dev";
+}
+
+pipeline {
+  agent none
+  stages {
+    stage('Set environment') {
+      agent any
+      steps {
+        script {
+          env.BRANCH_NAME = "${env.GIT_BRANCH.replaceFirst(/^.*\//, '')}"
+          env.ENV_NAME = getEnvName(env.BRANCH_NAME)
+        }
+      }
+    }
+    stage('Install Dependencies') {
+      agent {
+        docker { image 'node:lts-alpine' }
+      }
+      environment { HOME="." }
+      steps { sh 'npm install' }
+    }
+    stage('Static code Analysis') {
+      agent {
+        docker { image 'node:lts-alpine' }
+      }
+      environment { HOME="." }
+      steps { sh 'npm run lint' }
+    }
+    stage('Unit tests') {
+      agent {
+        docker { image 'node:lts-alpine' }
+      }
+      environment { HOME="." }
+      steps { sh 'npm run test:ci' }
+    }
+    stage('Build') {
+      agent {
+        docker { image 'node:lts-alpine' }
+      }
+      environment { HOME="." }
+      steps { sh 'npm run build:prod' }
+    }
+    stage('Sonarqube') {
+      agent any
+      environment {
+        SONAR_HOME = tool 'SonarScanner'
+      }
+      steps {
+        withSonarQubeEnv('SonarQube') {
+          sh '$SONAR_HOME/bin/sonar-scanner'
+        }
+        timeout(time: 5, unit: 'MINUTES') {  
+          waitForQualityGate abortPipeline: true  
+        }
+      }
+    }
+    stage('Deploy') {
+      agent any
+      when {
+        expression { ENV_NAME == 'preprod' || ENV_NAME == 'prod' }
+      }
+      steps {
+        sh 'docker-compose -p frontend_${ENV_NAME} -f docker-compose.${ENV_NAME}.yml up --build -d'
+      }
+    }
+  }
+  post {
+    always {
+      emailext to: "nonstopintegration@gmail.com",
+               subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}",
+               attachLog: true,
+               body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
+    }
+  }
+}
