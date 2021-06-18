@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
 import { LocalStorageService } from "./local-storage.service";
+import { user } from "../../models/models";
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,8 @@ import { LocalStorageService } from "./local-storage.service";
 export class AuthenticationService {
 
   constructor(private httpClient: HttpClient, private localStorage: LocalStorageService) {}
+
+  
 
   private static handleError(error: HttpErrorResponse): Observable<any> {
     let errorMessage;
@@ -24,8 +28,7 @@ export class AuthenticationService {
   }
 
   login(email: string, password: string): Observable<any> {
-    return this.httpClient.request(
-      'POST',
+    return this.httpClient.post(
       'http://www.NonStopIntegration.results-alnet.com',
       {
         body: {
@@ -33,6 +36,19 @@ export class AuthenticationService {
           password
         }
       }
+    ).pipe(
+      catchError(AuthenticationService.handleError),
+      tap(data => {
+        this.localStorage.setItem('user-id', data?.id);
+        this.localStorage.setItem('token', data.token);
+      })
+    );
+  }
+
+  registrate(user: user): Observable<any> {
+    return this.httpClient.post(      
+      'http://www.NonStopIntegration.results-alnet.com',
+      user,
     ).pipe(
       catchError(AuthenticationService.handleError),
       tap(data => {
